@@ -1,7 +1,7 @@
 import React from 'react';
 import './App.css';
 import TodoList from "./TodoList";
-import todoList from "./TodoList";
+
 
 function App() {
     const todolistTitle = 'What to learn'
