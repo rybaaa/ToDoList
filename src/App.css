@@ -1,36 +1,36 @@
-.App {
-  padding: 30px;
-  display: flex;
-}
+/*.App {*/
+/*  padding: 30px;*/
+/*  display: flex;*/
+/*  gap: 30px;*/
+/*}*/
 
-.App > div {
-  margin-right: 50px;
-}
+/*.title {*/
+/*  display: flex;*/
+/*  justify-content: flex-start;*/
+/*}*/
 
-.isDone {
-  text-decoration: line-through;
-  font-weight: bold;
-  color: hotpink;
-}
+/*.isDone {*/
+/*  text-decoration: line-through;*/
+/*  font-weight: bold;*/
+/*}*/
 
-.notDone {
-  font-weight: bold;
-  color: #0037ff;
-}
+/*.notDone {*/
+/*  font-weight: bold;*/
+/*}*/
 
-.btn {
-  padding: 5px;
-  background-color: crimson;
-  color:black;
-  border: 1px solid black;
-  cursor: pointer;
-}
+/*.btn {*/
+/*  padding: 5px;*/
+/*  background-color: crimson;*/
+/*  color:black;*/
+/*  border: 1px solid black;*/
+/*  cursor: pointer;*/
+/*}*/
 
-.activeBtn {
-  background-color: green;
-  color: white;
-  cursor: pointer;
-}
+/*.activeBtn {*/
+/*  background-color: green;*/
+/*  color: white;*/
+/*  cursor: pointer;*/
+/*}*/
 
 .error {
   border: 1px solid red;
