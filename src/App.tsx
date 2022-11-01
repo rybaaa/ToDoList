@@ -9,7 +9,7 @@ import {Menu} from "@material-ui/icons";
 
 export type FilterValuesType = 'all' | 'completed' | 'active'
 
-type TodolistType = {
+export type TodolistType = {
     id: string
     title: string
     filter: FilterValuesType
@@ -44,18 +44,7 @@ function App() {
         ],
     })
 
-    const changeTodoListFilter = (filter: FilterValuesType, todoListId: string) => {
-        setTodoLists(todoLists.map(t => t.id === todoListId ? {...t, filter: filter} : t))
-    }
 
-    const changeTodoListTitle = (title: string, todoListId: string) => {
-        setTodoLists(todoLists.map(t => t.id === todoListId ? {...t, title: title} : t))
-    }
-
-    const removeTodoList = (todoListId: string) => {
-        setTodoLists(todoLists.filter(t => t.id !== todoListId))
-        delete tasks[todoListId]
-    }
 
     const removeTask = (taskId: string, todoListId: string) => {
         // const copyTasks = {...tasks}
@@ -78,7 +67,6 @@ function App() {
         }
         return tasksForTodoList
     }
-
 
     const addTask = (title: string, todoListId: string) => {
         const newTask: TaskType = {
@@ -103,6 +91,20 @@ function App() {
             [todoListId]: tasks[todoListId].map(t => t.id === taskID ?
                 {...t, title: title} : t)
         })
+    }
+
+
+    const changeTodoListFilter = (filter: FilterValuesType, todoListId: string) => {
+        setTodoLists(todoLists.map(t => t.id === todoListId ? {...t, filter: filter} : t))
+    }
+
+    const changeTodoListTitle = (title: string, todoListId: string) => {
+        setTodoLists(todoLists.map(t => t.id === todoListId ? {...t, title: title} : t))
+    }
+
+    const removeTodoList = (todoListId: string) => {
+        setTodoLists(todoLists.filter(t => t.id !== todoListId))
+        delete tasks[todoListId]
     }
 
     const addTodoList = (title: string) => {
