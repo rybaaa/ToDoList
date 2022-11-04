@@ -5,7 +5,7 @@ import App from './App';
 import * as serviceWorker from './serviceWorker';
 import {ThemeProvider} from "@material-ui/core";
 import {createTheme} from '@material-ui/core/styles';
-import {blue, green, purple} from "@material-ui/core/colors";
+import {blue, green} from "@material-ui/core/colors";
 
 const theme = createTheme({
         palette: {

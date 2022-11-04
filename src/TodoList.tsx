@@ -3,7 +3,7 @@ import {FilterValuesType} from "./App";
 import {AddItemForm} from "./AddItemForm";
 import {EditableSpan} from "./EditableSpan";
 import {Button, ButtonGroup, Checkbox, IconButton, List, ListItem, Typography} from "@material-ui/core";
-import {BackspaceRounded, DeleteRounded} from "@material-ui/icons";
+import {DeleteRounded} from "@material-ui/icons";
 
 type TodoListPropsType = {
     title: string
