@@ -6,7 +6,8 @@ type addItemFormPropsType = {
     addItem: (title: string) => void
 }
 
-export const AddItemForm = (props: addItemFormPropsType) => {
+export const AddItemForm = React.memo((props: addItemFormPropsType) => {
+    console.log('additemform')
     const [title, setTitle] = useState<string>('')
     const [error, setError] = useState<boolean>(false)
     const onChangeSetLocalTitle = (e: ChangeEvent<HTMLInputElement>) => {
@@ -46,5 +47,5 @@ export const AddItemForm = (props: addItemFormPropsType) => {
             {errorMessage}
         </div>
     );
-};
+});
 

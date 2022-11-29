@@ -1,6 +1,6 @@
-import React, {ChangeEvent, FC} from 'react';
+import React, {FC, useCallback} from 'react';
 import {TodolistType} from "./AppWithRedux";
-import {Button, ButtonGroup, Checkbox, IconButton, List, ListItem, Typography} from "@material-ui/core";
+import {Button, ButtonGroup, IconButton,Typography} from "@material-ui/core";
 import {EditableSpan} from "./EditableSpan";
 import {DeleteRounded} from "@material-ui/icons";
 import {FilterValuesType} from "./App";
@@ -8,24 +8,25 @@ import {AddItemForm} from "./AddItemForm";
 import {useDispatch, useSelector} from "react-redux";
 import {AppRootStateType} from "./store/store";
 import {TaskType} from "./TodoList";
-import {addTaskAC, changeTaskStatusAC, changeTaskTitleAC, removeTaskAC} from "./store/task-reducer";
+import {addTaskAC} from "./store/task-reducer";
 import {ChangeTodolistFilterAC, ChangeTodolistTitleAC, RemoveTodolistAC} from "./store/todolists-reducer";
+import {Tasks} from "./Tasks";
 
 export type TodoListWithReduxType = {
     todoList: TodolistType
 }
 
-export const TodoListWithRedux: FC<TodoListWithReduxType> = ({todoList}) => {
-
+const TodoList: FC<TodoListWithReduxType> = ({todoList}) => {
+    console.log('todolist')
     const {id,title,filter} = todoList
 
     let tasks = useSelector<AppRootStateType, Array<TaskType>> (state => state.tasks[id])
     const dispatch = useDispatch()
 
 
-    const addTask = (title: string) => {
+    const addTask = useCallback((title: string) => {
         dispatch(addTaskAC(title, id))
-    }
+    }, [dispatch, id])
     if (filter === 'active') {
         tasks = tasks.filter(el => !el.isDone)
     }
@@ -34,42 +35,15 @@ export const TodoListWithRedux: FC<TodoListWithReduxType> = ({todoList}) => {
     }
 
 
-    const TaskList = tasks.map((t) => {
-        const RemoveTask = () => dispatch(removeTaskAC(t.id, id))
-        const changeTaskStatus = ((e: ChangeEvent<HTMLInputElement>) => {
-            dispatch(changeTaskStatusAC(t.id, e.currentTarget.checked, id))
-        })
-        const changeTaskTitle = (title: string) => {
-            dispatch(changeTaskTitleAC(id, t.id, title))
-        }
-        return (
-            <List>
-                <ListItem
-                    style={{padding: '0', justifyContent: 'space-between', opacity: t.isDone ? '0.5' : '1', fontWeight: t.isDone? 'normal' : 'bold'}}
-                    key={t.id} className={t.isDone ? 'isDone' : 'notDone'}>
-                    <Checkbox
-                        size={'small'}
-                        color = {'primary'}
-                        checked={t.isDone}
-                        onChange={changeTaskStatus}/>
-                    <EditableSpan title={t.title} changeTitle={changeTaskTitle}/>
-                    <IconButton
-                        color = {'secondary'}
-                        size={'small'}
-                        onClick={RemoveTask}><DeleteRounded/>
-                    </IconButton>
-                </ListItem>
-            </List>
-        )
-    })
+    const TaskList = tasks.map((t) => <Tasks key={t.id} id={t.id} title={t.title} isDone={t.isDone} todolistID={id}/>)
 
     const handlerCreator = (filter: FilterValuesType) => () => dispatch(ChangeTodolistFilterAC(id, filter))
 
     const removeTodoList = () => dispatch(RemoveTodolistAC(id))
 
-    const changeTodoListTitle = (title: string) => {
+    const changeTodoListTitle = useCallback( (title: string) => {
         dispatch(ChangeTodolistTitleAC(id, title))
-    }
+    }, [dispatch, id])
     return (
         <div style={{width:'300px'}}>
             <div>
@@ -119,3 +93,4 @@ export const TodoListWithRedux: FC<TodoListWithReduxType> = ({todoList}) => {
     )
 };
 
+export const TodoListWithRedux = React.memo(TodoList)
